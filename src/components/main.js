@@ -1,28 +1,15 @@
 import React from 'react';
-import Catagories from './catagories/catagories';
-import Product from './catagories/products';
+import Products from './categories/products';
 import { Box, Divider } from '@mui/material';
 
-function main() {
+function Main() {
   return (
-    <Box
-      mt={2}
-      sx={{
-        width: 300,
-        height: 300,
-        backgroundColor: 'primary.dark',
-        '&:hover': {
-          backgroundColor: 'primary.main',
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}
-    >
-      <Catagories />
+    <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <Divider />
-      <Product />
+      <Products />
     </Box>
   );
 }
 
 
-export default main;
+export default Main;

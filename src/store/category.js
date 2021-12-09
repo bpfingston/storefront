@@ -1,34 +1,29 @@
-import React from 'react';
-
-const CategoryContext = React.createContext();
-
 let initialState = {
-  category: ['All', 'Toy', 'Animal', 'MeMe'],
+  category: [
+  {displayName:'All', normalizedName: 'all', description:'all products'}, 
+  {displayName:'Toy', normalizedName: 'toy', description:'all toys'}, 
+  {displayName:'Animal',normalizedName:'animal', description:'all animals'},
+  {displayName:'MeMe', normalizedName:'meme', description:'all memes'}
+  ],
   currentCategory: null,
 };
 
-function categoryReducer(state = initialState, action) {
+function CategoryReducer(state = initialState, action) {
   let { type, payload } = action;
 
   switch (type) {
     case 'SELECTED_CATAGORY':
       if (payload === 'All') {
-        return { categories: state.category, currentCategory: null };
+        return { category: state.category, currentCategory: null };
       } else if (state.category.includes(payload)) {
-        return { currentCategory: payload };
+        return { category: state.category, currentCategory: payload };
+      } else {
+        return { category: state.category, currentCategory: state.currentCategory }
       }
-      break;
     default:
       return state;
   }
 }
 
-function CategoryProvider({ children }) {
-  return (
-    <CategoryContext.Provider value={initialState}>
-      {children}
-    </CategoryContext.Provider>
-  );
-}
 
-export { categoryReducer, CategoryProvider, CategoryContext };
+export default CategoryReducer;

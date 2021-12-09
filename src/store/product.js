@@ -30,20 +30,20 @@ let initialState = {
   ],
 };
 
-function productReducer(state = initialState, action) {
+function ProductReducer(state = initialState, action) {
   let { type, payload } = action;
   switch (type) {
     case 'SELECTED_CATAGORY':
-      if (payload !== 'All') {
+      if (payload) {
         let filteredItem = state.products.filter(
           (product) => product.category === payload
         );
-        return { product: filteredItem };
+        return { products: filteredItem };
       }
-      break;
+      return initialState;
     default:
       return state;
   }
 }
 
-export default productReducer;
+export default ProductReducer;
