@@ -7,7 +7,7 @@ import Main from './components/main';
 function App(props) {
   return (
     <>
-      <Header />
+      <Header props={props}/>
       <Main />
       <Footer />
     </>
