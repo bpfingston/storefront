@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { connect } from 'react-redux';
+import { addToCart } from '../../store/cart';
 
-function ProductCard({product}) {
+function ProductCard({product}, props) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -19,11 +21,20 @@ function ProductCard({product}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to Cart</Button>
-        <Button size="small">Details</Button>
+        <Button size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
+        {/* <Button size="small">Details</Button> */}
       </CardActions>
     </Card>
   );
 }
 
-export default ProductCard;
+
+const mapStateToProps = (state) => ({
+    cart: state.cart.cart,
+  });
+const mapDispatchToProps = (dispatch) => ({
+    addToCart: (product) =>
+      dispatch(addToCart(product)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 // import MenuIcon from '@mui/icons-material/Menu';
 import Headermenu from './menu/menu';
+import CartMenu from './cart/simpleCart';
 
 function Header(props) {
   return (
@@ -25,7 +26,7 @@ function Header(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             StoreFront
           </Typography>
-          <Button color="inherit">Login</Button>
+          <CartMenu />
         </Toolbar>
       </AppBar>
     </Box>
