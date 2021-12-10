@@ -7,14 +7,9 @@ import { connect } from 'react-redux';
 function Headermenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
   };
-  const handleClose = (e) => {
-    props.changeCategory(e.target.textContent);
-    props.products(e.target.textContent);
-    setAnchorEl(null);
-};
   return (
     <div>
       <Button
@@ -31,31 +26,34 @@ function Headermenu(props) {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
-        {props.category.map((item) => (
-          <MenuItem name={item} onClick={() => props.changeCategory(item)}>{item}</MenuItem>
+        {props.categorySelect.map((item, key) => (
+          <MenuItem
+            key={key}
+            name={item.displayName}
+            onClick={() => {
+              props.changeCategory(item.displayName);
+              setAnchorEl(null);
+            }}
+          >
+            {item.displayName}
+          </MenuItem>
         ))}
       </Menu>
     </div>
   );
 }
 
-
-
-
-
-
-
-const mapStateToProps = (state) => ({category: state.category.category});
+const mapStateToProps = (state) => ({
+  categorySelect: state.category.category,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   changeCategory: (name) =>
-      dispatch({ type: 'SELECTED_CATAGORY', payload: name }),
-  // changeProduct: (name) => dispatch({ type: 'SELECTED_CATAGORY', payload: name }),
+    dispatch({ type: 'SELECTED_CATEGORY', payload: name }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Headermenu);

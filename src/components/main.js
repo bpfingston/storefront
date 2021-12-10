@@ -1,11 +1,11 @@
 import React from 'react';
 import Products from './categories/products';
-import { Box, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 
 function Main() {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Divider />
+    <Box>
+      {/* <Divider /> */}
       <Products />
     </Box>
   );
