@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Button, Menu, MenuItem } from '@mui/material/';
 import { connect } from 'react-redux';
 
 function CartMenu(props) {
@@ -22,7 +20,7 @@ function CartMenu(props) {
                 onClick={handleClick}
                 color='inherit'
             >
-                Cart({`${props.cartState}`})
+                Cart({props.cartState})
             </Button>
 
             <Menu
@@ -35,6 +33,7 @@ function CartMenu(props) {
             >
                 <MenuItem
                     onClick={() => {
+                        props.showCartHandler();
                         setAnchorEl(null);
                     }}
                 >
@@ -52,14 +51,11 @@ function CartMenu(props) {
     );
 }
 
-const mapStateToProps = (state) => ({
-    cartState: state.cart.totalItems
-});
-const mapDispatchToProps = (dispatch) => ({
-    addToCart: (product) =>
-      dispatch({
-        type: 'ADD_TO_CART',
-        payload: product,
-      }),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(CartMenu);
+const mapStateToProps = (state) => {
+
+    return {
+        cartState: state.cart.totalItems,
+    };
+};
+
+export default connect(mapStateToProps)(CartMenu);

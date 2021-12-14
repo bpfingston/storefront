@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { connect } from 'react-redux';
+import { fetchCategories } from '../../store/category';
+
 
 function Headermenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -10,6 +12,9 @@ function Headermenu(props) {
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
+  useEffect(() => {
+    props.getCategories();
+  }, [])
   return (
     <div>
       <Button
@@ -37,6 +42,7 @@ function Headermenu(props) {
             onClick={() => {
               props.changeCategory(item.displayName);
               setAnchorEl(null);
+              props.hideCartHandler();
             }}
           >
             {item.displayName}
@@ -52,6 +58,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  getCategories: () => dispatch(fetchCategories()),
   changeCategory: (name) =>
     dispatch({ type: 'SELECTED_CATEGORY', payload: name }),
 });
