@@ -1,9 +1,16 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import ProductCard from './product-cards';
 import { Box } from '@mui/material';
+import { fetchProducts } from '../../store/product';
 
 function Products(props) {
+
+  useEffect(() => {
+    props.getProducts();
+  }, [])
+
+
   return (
     <Box
       className="product"
@@ -29,8 +36,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  getProducts: () => dispatch(fetchProducts()),
   changeCategory: (name) =>
-    dispatch({ type: 'SELECTED_CATEGORY', payload: name }),
+  dispatch({ type: 'SELECTED_CATEGORY', payload: name }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

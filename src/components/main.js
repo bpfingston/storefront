@@ -1,15 +1,42 @@
-import React from 'react';
+import * as React from 'react';
+import { connect } from 'react-redux'
+import ViewCart from './cart/view'
 import Products from './categories/products';
-import { Box } from '@mui/material';
+import Header from './header';
+import Footer from './footer';
+import Box from '@mui/material/Box';
 
-function Main() {
+function Main(props) {
+  const [cartView, setCartView] = React.useState();
+
+  console.log(ViewCart)
+  const showCartHandler = (e) => setCartView(true);
+
+  const hideCartHandler = () => setCartView(false); 
+
   return (
-    <Box>
-      {/* <Divider /> */}
-      <Products />
-    </Box>
+    <>
+      <Header 
+      showCartHandler={showCartHandler}
+      hideCartHandler={hideCartHandler}
+      />
+      <Box>
+        {props.categorySelect.currentCategory ? (
+          <h1>{props.categorySelect.currentCategory}Products</h1>
+
+        ):(
+          <h1>Welcome to StoreFront</h1>
+        )}
+        {!cartView ? <Products /> : <ViewCart />}
+      </Box>
+      <Footer />
+    </>
   );
 }
 
+const mapStateToProps = (state) => ({
+  // cartState: state.cart.totalItems,
+  categorySelect: state.category
+});
 
-export default Main;
+export default connect(mapStateToProps)(Main);

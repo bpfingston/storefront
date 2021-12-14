@@ -1,15 +1,10 @@
-// import { connect } from 'react-redux';
-// import Box from '@mui/material/Box';
-import Header from './components/header';
-import Footer from './components/footer';
 import Main from './components/main';
 
-function App(props) {
+function App() {
+
   return (
     <>
-      <Header props={props}/>
       <Main />
-      <Footer />
     </>
   );
 }
